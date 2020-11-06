@@ -22,11 +22,6 @@ int* generateRandomNumbers(int lower, int upper, int count) {
 
 
 int main() {
-    int lower = 1, upper = 10, count=5;
-    int* random_numbers = generateRandomNumbers(1,10, 5);
-
-    for(int i=0; i < count; i++) {
-        printf("Number %d: %d\n", i+1, random_numbers[i]);
-    }
+    int integers[9] = {1, 4, 2, 10, 23, 3, 1, 0, 20};
     return 0;
 }

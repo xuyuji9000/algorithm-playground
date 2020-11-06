@@ -36,11 +36,18 @@ int main()
     int max_sum = INT_MIN;
     int sum_size = 2;
 
-    for(int i=0; i < array_size; i++) {
+    if(array_size < sum_size) {
+        fprintf(stderr, "The number of integers in the array is smaller than the number of integers to sum.");
+        exit(1);
+    }
 
-        int biggest_starting_point_for_sum = array_size - sum_size + 1;
+    
+    int biggest_starting_point_for_sum = array_size - sum_size + 1;
+    for(int i=0; i < biggest_starting_point_for_sum; i++) {
+
         int current_sum = 0;
-        for (int j =i; j < biggest_starting_point_for_sum; j++ ) {
+
+        for (int j =i; j < (i+sum_size); j++ ) {
             current_sum += integers[j];
         }
 
