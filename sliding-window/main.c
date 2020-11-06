@@ -3,21 +3,25 @@
 
 #include <stdio.h>
 #include <stdlib.h> 
+#include <time.h>
 
-int* generateRandomNumbers(int lower, int upper, int count) {
-    int random_numbers[count];
+void generateRandomNumbers(int lower, int upper, int count, int* integers) {
+    // Use current time as seed for random generator 
+    srand(time(NULL)); 
+
+    // int* random_numbers = (int *) malloc(sizeof(int) * count);
+    // int random_numbers[count];
     for (int i = 0; i < count; i++) {
         if (upper < lower) {
             fprintf(stderr,"printRandom(): upper parameter should not be smaller than lower parameter.");
         }
         int number = rand() % (upper - lower + 1);
 
-        random_numbers[i] = number;
+        integers[i] = number;
 
         // printf("random number: %d\n",number );
     }
 
-    return random_numbers;
     
 }
 
@@ -29,7 +33,8 @@ int main() {
     //  Slide through the array, extract maximum_summary along the way
     // int integers[9] = {1, 4, 2, 10, 23, 3, 1, 0, 20};
     int array_size = 10;
-    int* integers = generateRandomNumbers(0,100, array_size);
+    int* integers = (int *) malloc(sizeof(int) * array_size);
+    generateRandomNumbers(0,100, array_size, integers);
 
     printf("Print out the integer array.\n\n");
     for(int i=0; i<array_size; i++){
@@ -64,6 +69,8 @@ int main() {
     }
 
     printf("\nThe biggest sequential sum of %d integer(s) is: %d\n\n", summary_size, maximum_summary);
+
+    free(integers);
 
     return 0;
 }
