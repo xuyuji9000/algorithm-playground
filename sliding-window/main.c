@@ -27,9 +27,16 @@ int main() {
     //
     //  Prepare summary of the first window 
     //  Slide through the array, extract maximum_summary along the way
-    int integers[9] = {1, 4, 2, 10, 23, 3, 1, 0, 20};
+    // int integers[9] = {1, 4, 2, 10, 23, 3, 1, 0, 20};
+    int array_size = 10;
+    int* integers = generateRandomNumbers(0,100, array_size);
 
-    int array_size = sizeof(integers)/sizeof(integers[0]);
+    printf("Print out the integer array.\n\n");
+    for(int i=0; i<array_size; i++){
+        printf("%d ", integers[i]);
+    }
+
+    printf("\n\nCalculations:\n");
 
     int current_summary=0;
     int summary_size = 2;
@@ -38,7 +45,7 @@ int main() {
     for(int i=0; i < summary_size; i++) {
         current_summary += integers[i];
     }
-    printf("Number %d calculation: %d\n", 0+1, current_summary);
+    printf("\nNumber %d calculation: %d\n", 0+1, current_summary);
     
     
     int maximum_summary=current_summary;
@@ -56,7 +63,7 @@ int main() {
         maximum_summary = (maximum_summary > current_summary) ? maximum_summary : current_summary;
     }
 
-    printf("\nThe biggest sequential sum of %d integer(s) is %d\n", summary_size, maximum_summary);
+    printf("\nThe biggest sequential sum of %d integer(s) is: %d\n\n", summary_size, maximum_summary);
 
     return 0;
 }
