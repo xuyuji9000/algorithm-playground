@@ -37,23 +37,19 @@ int main() {
 
         */
         char delemimator = ',';
-        char* value = strtok(line_content, &delemimator); // [2]
+        Characters_array[line_number].value =  strtok(line_content, &delemimator)[0]; // [2]
 
-        int frequency = atoi(strtok(NULL, &delemimator)); // [3]
+        Characters_array[line_number].frequency =  atoi(strtok(NULL, &delemimator)); // [3]
 
-        printf("Line length: %zu\nCharacter value: %s\nCharacter frequency: %d\n", numbers_read, value, frequency);
-
-        
-
-        // Characters_array[line_number].;
+        // printf("Line length: %zu\nCharacter value: %c\nCharacter frequency: %d\n\n", numbers_read, Characters_array[line_number].value, Characters_array[line_number].frequency);
         
         line_number++;
     }
 
     fclose(file_pointer);
-
     if (line_content)
         free(line_content);
+
     exit(EXIT_SUCCESS);
 }
 
