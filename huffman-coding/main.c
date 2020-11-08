@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-struct Characters {
+struct Node {
     char value;
     int frequency;
 };
@@ -25,7 +25,7 @@ int main() {
     /*
       Fixing the array size here, can be convert to dynamic array size.
     */
-    struct Characters Characters_array[10]; 
+    struct Node Node_array[10]; 
     ssize_t numbers_read; //[1]
     char * line_content = NULL;
     size_t len = 0;
@@ -33,15 +33,12 @@ int main() {
     int line_number = 0;
     while(-1 != (numbers_read = getline(&line_content, &len,file_pointer))) {
 
-        /*
-
-        */
         char delemimator = ',';
-        Characters_array[line_number].value =  strtok(line_content, &delemimator)[0]; // [2]
+        Node_array[line_number].value =  strtok(line_content, &delemimator)[0]; // [2]
 
-        Characters_array[line_number].frequency =  atoi(strtok(NULL, &delemimator)); // [3]
+        Node_array[line_number].frequency =  atoi(strtok(NULL, &delemimator)); // [3]
 
-        // printf("Line length: %zu\nCharacter value: %c\nCharacter frequency: %d\n\n", numbers_read, Characters_array[line_number].value, Characters_array[line_number].frequency);
+        // printf("Line length: %zu\nCharacter value: %c\nCharacter frequency: %d\n\n", numbers_read, Node_array[line_number].value, Node_array[line_number].frequency);
         
         line_number++;
     }
@@ -49,6 +46,11 @@ int main() {
     fclose(file_pointer);
     if (line_content)
         free(line_content);
+
+    /*
+      Use sorted frequency here, can change to random order .
+    */
+    
 
     exit(EXIT_SUCCESS);
 }
