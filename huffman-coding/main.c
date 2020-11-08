@@ -28,7 +28,11 @@ int main() {
         printf("Line length: %zu\nLine value: %s\n", numbers_read, line);
     }
 
-    return 0;
+    fclose(fptr);
+
+    if (line)
+        free(line);
+    exit(EXIT_SUCCESS);
 }
 
 
