@@ -3,6 +3,7 @@
  **/
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 
 struct MinHeap {
@@ -23,6 +24,9 @@ void freeMinHeap(struct MinHeap* heap);
 void insert(struct MinHeap* heap, int element);
 void heapify_bottom_top(struct MinHeap* heap, int index);
 void swap(int* x, int* y);
+int  parent_index(int child_index);
+bool smaller_than_parent(int* array, int index);
+bool not_root_node(int index);
 
 void extract(){};
 
@@ -33,6 +37,7 @@ int main() {
     const int HEAP_CAPACITY = 10;
     struct MinHeap* myMinHeap = initMinHeap(HEAP_CAPACITY);
 
+    printf("intput array length: %lu\n", sizeof(test_data) / sizeof(test_data[0]));
     for(int i = 0; i < sizeof(test_data)/sizeof(test_data[0]); i++ ) {
         insert(myMinHeap, test_data[i]);
     }
@@ -77,13 +82,53 @@ void heapify_bottom_top(struct MinHeap* heap, int index) {
  * Algorithm description:
  * 1. Add the element to the bottom level of the heap at the leftmost open space;
  * 2. Compare the added element with its parent; if they are in the correct order, stop;
+ * 3. If not, swap the element with its parent and return to the previous step.
  **/
 void insert(struct MinHeap* heap, int element){
 
-    if(heap->count < heap->capacity) {
-        heap->array[heap->count] = element;
-        heapify_bottom_top(heap, heap->count);
-        heap->count++;
+    // for(int i=0; i < heap->count; i++){
+    //   printf("%d", *(heap->array+i));
+    // };
+    // printf("\n");
+
+    // Check if the heap still have capacity for adding new element
+    if (heap->count >= heap->capacity) {
+        return;
     }
+    
+    // Add element to the end of the heap
+    int current_index = heap->count;
+    heap->array[current_index] = element;
+
+    
+    // while( current_index>0 && *(heap->array + parent_index(current_index)) > *(heap->array+current_index)) {
+    while( not_root_node(current_index) && smaller_than_parent(heap->array, current_index) ) {
+        
+        int* parent_element = heap->array + parent_index(current_index);
+        int* child_element = heap->array + current_index;
+
+        swap(parent_element, child_element);
+
+        current_index = parent_index(current_index);
+
+    }
+
+    heap->count++;
+    
 };
 
+bool not_root_node(int index) {
+    if(0 == index) 
+      return false;
+    return true;
+}
+
+bool smaller_than_parent(int* array, int index) {
+    if( *(array+index) >=  *(array + parent_index(index)))
+      return false;
+    return true;
+}
+
+int parent_index(int child_index) {
+    return (child_index - 1)/2;
+}
