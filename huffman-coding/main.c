@@ -8,7 +8,20 @@
 struct Node {
     char value;
     int frequency;
+    struct Node* left;
+    struct Node* right;
 };
+
+void createInternalNode(struct Node** new_Node_pointer, struct Node* left, struct Node* right) {
+    struct Node new_Node =  {
+        .frequency = (*left).frequency + (*right).frequency
+    };
+
+    memcpy(*new_Node_pointer, &new_Node, sizeof(struct Node));
+
+};
+
+
 
 int main() {
 
@@ -38,10 +51,39 @@ int main() {
 
         Node_array[line_number].frequency =  atoi(strtok(NULL, &delemimator)); // [3]
 
+        // DEBUG:
         // printf("Line length: %zu\nCharacter value: %c\nCharacter frequency: %d\n\n", numbers_read, Node_array[line_number].value, Node_array[line_number].frequency);
         
         line_number++;
     }
+
+    int Node_count = line_number;
+    int Node_index=0;
+
+    struct Node* root;
+
+    // Create first internal node
+    // struct Node new_Node = {
+    //     .frequency = Node_array[0].frequency + Node_array[1].frequency
+    // };
+    struct Node* new_Node = malloc(sizeof(struct Node));
+    createInternalNode( &new_Node, &Node_array[0], &Node_array[1] );
+
+
+    printf("New internal Node frequency: %d\n", (*new_Node).frequency);
+
+    // root = &new_Node;
+    // Node_index += 2;
+
+    // int end_of_Node_index = Node_count - 1;
+    // for(int i = Node_index;  i <= end_of_Node_index; i++) {
+    //     int Nodes_left = (end_of_Node_index - i) +1;
+
+    //     if( 1 == Nodes_left ) {
+            
+    //     }
+    // }
+
 
     fclose(file_pointer);
     if (line_content)
