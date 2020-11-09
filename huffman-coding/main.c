@@ -12,6 +12,7 @@ struct Node {
     struct Node* right;
 };
 
+
 void createInternalNode(struct Node** new_Node_pointer, struct Node* left, struct Node* right) {
     struct Node new_Node =  {
         .frequency = (*left).frequency + (*right).frequency
@@ -62,26 +63,67 @@ int main() {
 
     struct Node* root;
 
-    // Create first internal node
-    // struct Node new_Node = {
-    //     .frequency = Node_array[0].frequency + Node_array[1].frequency
-    // };
     struct Node* new_Node = malloc(sizeof(struct Node));
     createInternalNode( &new_Node, &Node_array[0], &Node_array[1] );
 
 
-    printf("New internal Node frequency: %d\n", (*new_Node).frequency);
+    // printf("New internal Node frequency: %d\n", (*new_Node).frequency);
 
-    // root = &new_Node;
-    // Node_index += 2;
+    root = new_Node;
+    new_Node = NULL; // Prevent dangling pointer
+    Node_index += 2;
 
-    // int end_of_Node_index = Node_count - 1;
-    // for(int i = Node_index;  i <= end_of_Node_index; i++) {
+    int end_of_Node_index = Node_count - 1;
+
+    while(Node_index <= end_of_Node_index) {
+        int Nodes_left = (end_of_Node_index - Node_index) +1;
+
+        struct Node* new_Node = malloc(sizeof(struct Node));
+
+        if( 1 == Nodes_left ) {
+            if ( (*root).frequency > Node_array[Node_index].frequency)
+                createInternalNode(&new_Node, root, &Node_array[Node_index]);
+            else
+                createInternalNode(&new_Node, &Node_array[Node_index], root);
+            root = new_Node;            
+            printf("New internal Node frequency: %d\n", (*new_Node).frequency);
+            break;
+        }
+
+        Node_index++;
+
+        // if ( (*root).frequency > Node_array[Node_index].frequency ) {
+        //     createInternalNode(&new_Node, root, &Node_array[Node_index]);
+        //     Node_index+=1;
+        //     root = new_Node;            
+        //     printf("New internal Node frequency: %d\n", (*new_Node).frequency);
+        //     continue;
+        // }
+
+        // if ( Node_array[Node_index].frequency > Node_array[Node_index+1].frequency )
+        
+        //     createInternalNode(&new_Node, &Node_array[Node_index], &Node_array[Node_index+1]);         
+        //     Node_index+=2;
+        //     continue;
+        // }
+           
+
+        
+
+    }
+
+    // for(int i = Node_index;  i <= end_of_Node_index; ) {
     //     int Nodes_left = (end_of_Node_index - i) +1;
 
     //     if( 1 == Nodes_left ) {
-            
+    //         struct Node* new_Node = malloc(sizeof(struct Node));
+    //         createInternalNode(&new_Node, &Node_array[i], root);
+    //         root = new_Node;            
+    //         printf("New internal Node frequency: %d\n", (*new_Node).frequency);
+    //         break;
     //     }
+
+
     // }
 
 
