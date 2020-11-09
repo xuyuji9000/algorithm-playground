@@ -27,3 +27,7 @@ This folder provide an example of binary heap.
 3. [Binary heap / Heap operations](https://en.wikipedia.org/wiki/Binary_heap#Heap_operations)
 
   > Understand binary heap related operations.
+
+4. [Min Heap array implementation in c](https://gist.github.com/sudhanshuptl/d86da25da46aa3d060e7be876bbdb343)
+
+  > Read this source code for implementation inspiration.
