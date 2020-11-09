@@ -3,6 +3,18 @@ This folder provide an example of binary heap.
 > A binary heap is a heap data structure that takes the form of a binary tree.[1]
 
 
+## How is Binary Heap  represented?
+
+  1. The root element is at array[0]
+
+  2. Below shows indexes of the other nodes for the i<sup>th</sup> node, i.e. , array[i]
+
+      - array[ ( i - 1 ) / 2 ] Returns the parent node
+
+      - array[ ( i * 2 ) + 1 ] Returns left child node
+
+      - array[ ( i * 2 ) + 2 ] Returns right child node
+
 
 # Reference
 
