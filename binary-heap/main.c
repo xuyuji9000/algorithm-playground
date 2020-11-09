@@ -86,11 +86,6 @@ void heapify_bottom_top(struct MinHeap* heap, int index) {
  **/
 void insert(struct MinHeap* heap, int element){
 
-    // for(int i=0; i < heap->count; i++){
-    //   printf("%d", *(heap->array+i));
-    // };
-    // printf("\n");
-
     // Check if the heap still have capacity for adding new element
     if (heap->count >= heap->capacity) {
         return;
@@ -100,8 +95,6 @@ void insert(struct MinHeap* heap, int element){
     int current_index = heap->count;
     heap->array[current_index] = element;
 
-    
-    // while( current_index>0 && *(heap->array + parent_index(current_index)) > *(heap->array+current_index)) {
     while( not_root_node(current_index) && smaller_than_parent(heap->array, current_index) ) {
         
         int* parent_element = heap->array + parent_index(current_index);
