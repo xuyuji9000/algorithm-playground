@@ -8,6 +8,10 @@ This folder provide an example of binary heap.
 
 1. [Binary heap](https://en.wikipedia.org/wiki/Binary_heap)
 
-1. [Binary Heap](https://www.geeksforgeeks.org/binary-heap/)
+2. [Binary Heap](https://www.geeksforgeeks.org/binary-heap/)
 
   > Read this article for implementation inspiration.
+
+3. [Binary heap / Heap operations](https://en.wikipedia.org/wiki/Binary_heap#Heap_operations)
+
+  > Understand binary heap related operations.
