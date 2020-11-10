@@ -5,21 +5,13 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-
 struct MinHeap {
     int* array;
     int capacity;
     int count;
 };
 
-struct MinHeap* initMinHeap(int capacity) {
-    struct MinHeap* heap = (struct MinHeap*)malloc(sizeof(struct MinHeap));
-    heap->array = (int*)malloc(capacity*sizeof(int));
-    heap->capacity = capacity;
-    heap->count = 0;
-    return heap;
-};
-
+struct MinHeap* initMinHeap(int capacity);
 void freeMinHeap(struct MinHeap* heap);
 void insert(struct MinHeap* heap, int element);
 void heapify_bottom_top(struct MinHeap* heap, int index);
@@ -194,3 +186,11 @@ void printHead(struct MinHeap* heap) {
         printf("%d: %d\n", i, heap->array[i]);
     }
 }
+
+struct MinHeap* initMinHeap(int capacity) {
+    struct MinHeap* heap = (struct MinHeap*)malloc(sizeof(struct MinHeap));
+    heap->array = (int*)malloc(capacity*sizeof(int));
+    heap->capacity = capacity;
+    heap->count = 0;
+    return heap;
+};
