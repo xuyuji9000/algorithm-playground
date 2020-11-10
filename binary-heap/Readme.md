@@ -2,6 +2,8 @@ This folder provide an example of binary heap.
 
 > A binary heap is a heap data structure that takes the form of a binary tree.[1]
 
+> Binary heaps are common way of implementing priority queues.[1]
+
 
 ## How is Binary Heap  represented?
 
