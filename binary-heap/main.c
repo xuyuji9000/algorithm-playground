@@ -14,13 +14,10 @@ struct MinHeap {
 struct MinHeap* initMinHeap(int capacity);
 void freeMinHeap(struct MinHeap* heap);
 void insert(struct MinHeap* heap, int element);
-void heapify_bottom_top(struct MinHeap* heap, int index);
 void swap(int* x, int* y);
 int  parent_index(int child_index);
 bool smaller_than_parent(int* array, int index);
 bool not_root_node(int index);
-// int left_child_index(int parent_index);
-// int right_child_index(int parent_index);
 
 
 int extract(struct MinHeap* heap);
@@ -66,17 +63,6 @@ void swap(int* x, int* y) {
 
 };
 
-void heapify_bottom_top(struct MinHeap* heap, int index) {
-    int temp;
-    int parent_node = (index-1)/2;
-
-    if( heap->array[parent_node] > heap->array[index]) {
-        swap(heap->array+parent_node, heap->array+index);
-
-        heapify_bottom_top(heap, parent_node);
-
-    }
-}
 
 /**
  * Algorithm description:
