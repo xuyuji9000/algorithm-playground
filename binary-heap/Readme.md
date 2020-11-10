@@ -31,3 +31,7 @@ This folder provide an example of binary heap.
 4. [Min Heap array implementation in c](https://gist.github.com/sudhanshuptl/d86da25da46aa3d060e7be876bbdb343)
 
   > Read this source code for implementation inspiration.
+
+5. [Introduction to Binary Heaps (MaxHeaps)](https://www.youtube.com/watch?v=WCm3TqScBM8)
+
+  > Use this video introduction to get more intuitive understanding.
