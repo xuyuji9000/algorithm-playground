@@ -5,15 +5,22 @@ This folder provide an example of binary heap.
 
 ## How is Binary Heap  represented?
 
-  1. The root element is at array[0]
+1. The root element is at array[0]
 
-  2. Below shows indexes of the other nodes for the i<sup>th</sup> node, i.e. , array[i]
+2. Below shows indexes of the other nodes for the i<sup>th</sup> node, i.e. , array[i]
 
-      - array[ ( i - 1 ) / 2 ] Returns the parent node
+    - array[ ( i - 1 ) / 2 ] Returns the parent node
 
-      - array[ ( i * 2 ) + 1 ] Returns left child node
+    - array[ ( i * 2 ) + 1 ] Returns left child node
 
-      - array[ ( i * 2 ) + 2 ] Returns right child node
+    - array[ ( i * 2 ) + 2 ] Returns right child node
+
+## Efficiency
+
+- The hight of the heap of **n** nodes is **O(lgn)**
+
+- Insertion: each level new value moves up takes **O(1)** time, **O(lgn)** is the worst case.
+
 
 
 # Reference
