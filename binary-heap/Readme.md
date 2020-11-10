@@ -29,18 +29,20 @@ This folder provide an example of binary heap.
 
 1. [Binary heap](https://en.wikipedia.org/wiki/Binary_heap)
 
+    > Wikipedia
+
 2. [Binary Heap](https://www.geeksforgeeks.org/binary-heap/)
 
-  > Read this article for implementation inspiration.
+    > Read this article for implementation inspiration.
 
 3. [Binary heap / Heap operations](https://en.wikipedia.org/wiki/Binary_heap#Heap_operations)
 
-  > Understand binary heap related operations.
+    > Understand binary heap operations.
 
 4. [Min Heap array implementation in c](https://gist.github.com/sudhanshuptl/d86da25da46aa3d060e7be876bbdb343)
 
-  > Read this source code for implementation inspiration.
+    > Read this source code for implementation inspiration.
 
 5. [Introduction to Binary Heaps (MaxHeaps)](https://www.youtube.com/watch?v=WCm3TqScBM8)
 
-  > Use this video introduction to get more intuitive understanding.
+    > Use this video introduction to get more intuitive understanding.
