@@ -50,10 +50,12 @@ int main() {
     }
 
     struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
+    memset(new_node, 0, sizeof(struct Node));
     ssize_t numbers_read; //[1]
     char * line_content = NULL;
     size_t len = 0;
     while(-1 != (numbers_read = getline(&line_content, &len,file_pointer))) {
+        memset(new_node, 0, sizeof(struct Node));
         char delemimator = ',';
         (*new_node).value =  strtok(line_content, &delemimator)[0]; // [2]
 
@@ -67,6 +69,7 @@ int main() {
     }
 
     free(new_node);
+    new_node=NULL;
 
     
 
