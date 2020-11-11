@@ -132,6 +132,7 @@ int main() {
         }
 
         struct Node* internal_node = (struct Node*)malloc(sizeof(struct Node));
+        memset(internal_node, 0, sizeof(struct Node));
         createInternalNode( internal_node, first_node, second_node );
 
         insert(myMinHeap, *internal_node);
@@ -142,7 +143,10 @@ int main() {
         first_node=NULL;
         free(second_node);
         second_node=NULL;  
-        free(internal_node);
+        /**
+         * do not free internal_node memory 
+         * it's used to construct huffman coding tree
+         **/
         internal_node=NULL;  
     }
 
@@ -169,15 +173,12 @@ int main() {
     exit(EXIT_SUCCESS);
 }
 
-void createInternalNode(struct Node* new_Node_pointer, struct Node* left, struct Node* right) {
-    struct Node new_Node =  {
-        .frequency = (*left).frequency + (*right).frequency
-    };
+void createInternalNode(struct Node* root, struct Node* left, struct Node* right) {
+    root->frequency = left->frequency +right->frequency;
 
-    memcpy(new_Node_pointer, &new_Node, sizeof(struct Node));
 
-    new_Node_pointer->left = left;
-    new_Node_pointer->right = right;
+    root->left = left;
+    root->right = right;
 
 };
 
