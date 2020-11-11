@@ -30,7 +30,7 @@ bool smaller_than_parent(int* array, int index);
 bool not_root_node(int index);
 
 
-int extract(struct MinHeap* heap);
+struct Node extract(struct MinHeap* heap);
 
 int main() {
 
@@ -67,12 +67,17 @@ int main() {
 
     free(new_node);
 
+    
+
     // DEBUG:
     /*
     for(int i=0; i < myMinHeap->count; i++) {
         printf("frequency: %d\n", myMinHeap->array[i].frequency);
     };
     */
+    
+    
+    struct Node temp_node = extract(myMinHeap);
     
 
     /*
@@ -211,10 +216,13 @@ void insert(struct MinHeap* heap, struct Node element){
         if(higher_than_parent)
             break;
 
-        struct Node parent_element = *(heap->array+parent_index(current_index));
-        struct Node current_element = *(heap->array+current_index);
+        struct Node* parent_element = heap->array+parent_index(current_index);
+        struct Node* current_element = heap->array+current_index;
 
-        swap(&parent_element, &current_element);
+        swap(parent_element, current_element);
+
+        parent_element = NULL;
+        current_element = NULL;
 
         current_index = parent_index(current_index);
 
@@ -238,6 +246,69 @@ void swap(struct Node* x, struct Node* y) {
 
 int parent_index(int child_index) {
     return (child_index - 1)/2;
+}
+
+
+/**
+ * Description: This function extract the root for minimum and balance the heap.
+ * Steps: 
+ * 1. Replace the root with the last element
+ * 2. Compare the new root with its children; if they are the correct order, stop
+ * 3. If not, swap will smaller children, and return to previous step
+ **/
+struct Node extract(struct MinHeap* heap) {
+
+    int root_index = 0;
+    
+    struct Node* root_element_address = heap->array+root_index;
+    struct Node* last_element_address = heap->array+(heap->count - 1);
+
+    struct Node* result  = (struct Node*)malloc(sizeof(struct Node));
+    memcpy(result, root_element_address, sizeof(struct Node));
+
+    memcpy(root_element_address, last_element_address, sizeof(struct Node));
+    memset(last_element_address, 0, sizeof(struct Node));
+    heap->count--;
+
+    // Hepify
+    int current_index = root_index;
+    while(true) {
+        int left_child_index = current_index*2 + 1;
+        int right_child_index = current_index*2 + 2;
+
+        bool do_not_have_left_child     = left_child_index >= heap->count;
+        bool have_left_child            = !do_not_have_left_child;
+
+        bool do_not_have_right_child    = right_child_index >= heap->count;
+        bool have_right_child           = !do_not_have_right_child;
+
+        bool do_not_have_children = do_not_have_left_child && do_not_have_right_child;
+
+        if(do_not_have_children) {
+            break;
+        }
+
+        int smallest = current_index;
+
+        bool larger_than_left_child = have_left_child && (heap->array[left_child_index].frequency < heap->array[smallest].frequency);
+        if( larger_than_left_child ) {
+            smallest = left_child_index;
+        }
+
+
+        bool larger_than_right_child = have_right_child && (heap->array[right_child_index].frequency < heap->array[smallest].frequency);
+        if( larger_than_right_child ) {
+            smallest = right_child_index;
+        }
+
+        swap(heap->array+smallest, heap->array+current_index);
+        current_index=smallest;
+    }
+        
+
+    
+
+    return *result;
 }
 
 /*
