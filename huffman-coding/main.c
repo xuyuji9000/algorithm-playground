@@ -1,5 +1,4 @@
 // This program implements huffman encoding
-// Build command: gcc -o main ./main.c
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,7 +12,7 @@ struct Node {
     struct Node* right;
 };
 
-void createInternalNode(struct Node** new_Node_pointer, struct Node* left, struct Node* right);
+void createInternalNode(struct Node* new_Node_pointer, struct Node* left, struct Node* right);
 
 struct MinHeap {
     struct Node* array;
@@ -30,7 +29,7 @@ bool smaller_than_parent(int* array, int index);
 bool not_root_node(int index);
 
 
-struct Node extract(struct MinHeap* heap);
+bool extract(struct MinHeap* heap, struct Node* result);
 
 int main() {
 
@@ -76,8 +75,77 @@ int main() {
     };
     */
     
+    /*
+    // DEBUG:
+    // Test extract() function
+    struct Node* temp_node = (struct Node*)malloc(sizeof(struct Node));
+    extract(myMinHeap,temp_node);
+    printf("extracted value:%d\n", temp_node->frequency);
+    free(temp_node);
+    temp_node=NULL;
+    */
+
+
+    while(true) {
+        /*
+        //
+        // DEBUG: 
+        
+        struct Node* first_node=NULL;
+        if(!extract(myMinHeap, first_node)) {
+            printf("extract ended\n");
+            break;
+        }
+        printf("%d\n", first_node->frequency);
+        */
+
+        printf("\ncount: %d\n", myMinHeap->count);
+        for(int i=0; i<myMinHeap->count; i++){
+            printf("frequency: %d\n", (myMinHeap->array[i]).frequency);
+
+        }
+
+        if( 0 >= myMinHeap->count) {
+            fprintf(stderr,"The heap is empty\n");
+            exit(EXIT_FAILURE);
+            break;
+        }
+        
+        if(1 == myMinHeap->count ) {
+            printf("Huffman coding process finished\n");
+            break;
+        }
+
+        struct Node* first_node=(struct Node*)malloc(sizeof(struct Node));
+        struct Node* second_node=(struct Node*)malloc(sizeof(struct Node));
+
+        if(!extract(myMinHeap, first_node)) {
+            fprintf(stderr, "extract node failed\n");
+            break;
+        }
+
+        if(!extract(myMinHeap, second_node)) {
+            fprintf(stderr, "extract node failed\n");
+            break;
+        }
+
+        // struct Node* internal_node = (struct Node*)malloc(sizeof(struct Node));
+        // // createInternalNode( internal_node, first_node, second_node );
+
+        // // insert(myMinHeap, *internal_node);
+
+
+        // Free not using pointers
+        free(first_node);
+        first_node=NULL;
+        free(second_node);
+        second_node=NULL;  
+        // free(internal_node);
+        // internal_node=NULL;  
+    }
+
     
-    struct Node temp_node = extract(myMinHeap);
+
     
 
     /*
@@ -159,12 +227,12 @@ int main() {
     exit(EXIT_SUCCESS);
 }
 
-void createInternalNode(struct Node** new_Node_pointer, struct Node* left, struct Node* right) {
+void createInternalNode(struct Node* new_Node_pointer, struct Node* left, struct Node* right) {
     struct Node new_Node =  {
         .frequency = (*left).frequency + (*right).frequency
     };
 
-    memcpy(*new_Node_pointer, &new_Node, sizeof(struct Node));
+    memcpy(new_Node_pointer, &new_Node, sizeof(struct Node));
 
 };
 
@@ -256,21 +324,33 @@ int parent_index(int child_index) {
  * 2. Compare the new root with its children; if they are the correct order, stop
  * 3. If not, swap will smaller children, and return to previous step
  **/
-struct Node extract(struct MinHeap* heap) {
+ bool extract(struct MinHeap* heap, struct Node* result) {
+
+     if(NULL ==result) {
+         printf("extract failed, pointer is empty.\n");
+         return false;
+     }
+
+
+    if(heap->count <= 0)
+        return false;
 
     int root_index = 0;
     
     struct Node* root_element_address = heap->array+root_index;
     struct Node* last_element_address = heap->array+(heap->count - 1);
 
-    struct Node* result  = (struct Node*)malloc(sizeof(struct Node));
+    // struct Node* result  = (struct Node*)malloc(sizeof(struct Node));
     memcpy(result, root_element_address, sizeof(struct Node));
 
     memcpy(root_element_address, last_element_address, sizeof(struct Node));
     memset(last_element_address, 0, sizeof(struct Node));
     heap->count--;
 
-    // Hepify
+    /**
+     * Hepify
+     * Balance the heap, after extract the root node
+     **/
     int current_index = root_index;
     while(true) {
         int left_child_index = current_index*2 + 1;
@@ -284,6 +364,10 @@ struct Node extract(struct MinHeap* heap) {
 
         bool do_not_have_children = do_not_have_left_child && do_not_have_right_child;
 
+        /**
+         * Finish balancing
+         * When current index is a leaf node
+         **/
         if(do_not_have_children) {
             break;
         }
@@ -301,14 +385,18 @@ struct Node extract(struct MinHeap* heap) {
             smallest = right_child_index;
         }
 
+        /**
+         * Finish balancing
+         * When current index is the smallest comparing with children
+         **/
+        if(smallest == current_index)
+            break;
+
         swap(heap->array+smallest, heap->array+current_index);
         current_index=smallest;
     }
-        
 
-    
-
-    return *result;
+    return true;
 }
 
 /*

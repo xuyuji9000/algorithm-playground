@@ -11,6 +11,8 @@ This folder implements huffman coding in C.
 
 - Generate debug information: `gcc -Wall -g ./main.c`
 
+- Start debugging: `gdb a.out`
+
 - Break at line: `break LINE_NUMBER`
 
 # Reference
