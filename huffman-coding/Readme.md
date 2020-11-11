@@ -1,5 +1,18 @@
 This folder implements huffman coding in C.
 
+
+## GDB
+
+- Prepare environment
+
+  - `docker run centos:8`
+
+  - `yum install gdb gcc`
+
+- Generate debug information: `gcc -Wall -g ./main.c`
+
+- Break at line: `break LINE_NUMBER`
+
 # Reference
 
 1. [Huffman Coding - Greedy Algorithm](https://www.youtube.com/watch?v=dM6us854Jk0&t=3s)
