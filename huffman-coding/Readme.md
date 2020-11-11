@@ -19,13 +19,15 @@ This folder implements huffman coding in C.
 
 - Prepare environment
 
-  - `docker run centos:8`
+  - `docker run -it centos:8`
 
   - `yum install gdb gcc`
 
 - Generate debug information: `gcc -Wall -g ./main.c`
 
 - Start debugging: `gdb a.out`
+
+- Prepare layout: `layout src`
 
 - Break at line: `break LINE_NUMBER`
 

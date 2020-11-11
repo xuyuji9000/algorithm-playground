@@ -28,6 +28,8 @@ int  parent_index(int child_index);
 bool smaller_than_parent(int* array, int index);
 bool not_root_node(int index);
 
+void print_code(struct Node* node, int code[], int code_index);
+
 
 bool extract(struct MinHeap* heap, struct Node* result);
 
@@ -147,6 +149,16 @@ int main() {
     fclose(file_pointer);
     if (line_content)
         free(line_content);
+
+
+    
+    // Print huffman code
+    int code[100] = {};
+    int code_index = 0;
+    print_code(myMinHeap->array, code, code_index);
+    
+
+    // printf("\ncharacter: %p, frequency: %p\n", myMinHeap->array[0].left, myMinHeap->array[0].right);
     freeMinHeap(myMinHeap);
 
     /*
@@ -163,6 +175,9 @@ void createInternalNode(struct Node* new_Node_pointer, struct Node* left, struct
     };
 
     memcpy(new_Node_pointer, &new_Node, sizeof(struct Node));
+
+    new_Node_pointer->left = left;
+    new_Node_pointer->right = right;
 
 };
 
@@ -327,6 +342,22 @@ int parent_index(int child_index) {
     }
 
     return true;
+}
+
+void print_code(struct Node* node, int code[], int code_index) {
+    if(node->left) {
+        code[code_index] = 0;
+        print_code(node->left, code, code_index+1);
+    }
+    if(node->right) {
+        code[code_index] = 1;
+        print_code(node->right, code, code_index+1);
+    }
+
+    printf("value: %c ", node->value);
+    for(int i=0; i < code_index; i++) {
+        printf("%d", code[i]);
+    }
 }
 
 /*
