@@ -27,11 +27,9 @@ void swap(struct Node* x, struct Node* y);
 int  parent_index(int child_index);
 bool smaller_than_parent(int* array, int index);
 bool not_root_node(int index);
-
-void print_code(struct Node* node, int code[], int code_index);
-
-
 bool extract(struct MinHeap* heap, struct Node* result);
+void print_code(struct Node* node, int code[], int code_index);
+bool is_leaf(struct Node* node);
 
 int main() {
 
@@ -179,10 +177,14 @@ int main() {
 void createInternalNode(struct Node* root, struct Node* left, struct Node* right) {
     root->frequency = left->frequency +right->frequency;
 
+    root->left = (struct Node*)malloc(sizeof(struct Node));
+    memset(root->left, 0, sizeof(struct Node));
+    memcpy(root->left, left, sizeof(struct Node));
 
-    root->left = left;
-    root->right = right;
-
+    root->right = (struct Node*)malloc(sizeof(struct Node));
+    memset(root->right, 0, sizeof(struct Node));
+    memcpy(root->right, right, sizeof(struct Node));
+    
 };
 
 struct MinHeap* initMinHeap(int capacity) {
@@ -358,10 +360,20 @@ void print_code(struct Node* node, int code[], int code_index) {
         print_code(node->right, code, code_index+1);
     }
 
-    printf("value: %c ", node->value);
-    for(int i=0; i < code_index; i++) {
-        printf("%d", code[i]);
+    if(is_leaf(node)) {
+        printf("value: %c ", node->value);
+        for(int i=0; i < code_index; i++) {
+            printf("%d", code[i]);
+        }
+        printf("\n");
     }
+    
+}
+
+bool is_leaf(struct Node* node) {
+
+    bool do_not_have_children = (NULL == node->left) && (NULL == node->right);
+    return do_not_have_children?true:false;
 }
 
 /*
