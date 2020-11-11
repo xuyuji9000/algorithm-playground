@@ -147,12 +147,12 @@ int extract(struct MinHeap* heap) {
 
         int smallest = current_index;
 
-        bool larger_than_left_child = have_left_child && (heap->array[left_child_index] < heap->array[current_index]);
+        bool larger_than_left_child = have_left_child && (heap->array[left_child_index] < heap->array[smallest]);
         if( larger_than_left_child ) {
             smallest = left_child_index;
         }
 
-        bool larger_than_right_child = have_right_child && (heap->array[right_child_index] < heap->array[current_index]);
+        bool larger_than_right_child = have_right_child && (heap->array[right_child_index] < heap->array[smallest]);
         if( larger_than_right_child ) {
             smallest = right_child_index;
         }
