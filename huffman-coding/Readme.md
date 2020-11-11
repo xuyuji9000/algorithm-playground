@@ -1,6 +1,20 @@
 This folder implements huffman coding in C.
 
 
+## Algorithm description
+
+1. Create a leaf node for each unique character and build a min heap of all leaf nodes.
+
+2. Extract two nodes with the minimum frequency from the min heap
+
+3. Create a new internal node with a frequency equal to the sum of the two nodes frequencies. 
+
+    - Make the first extracted node as left child, and the other as right child
+
+    - Add the internal node to the min heap
+
+4. Repeat 2 and 3 until the heap contains only one node.
+
 ## GDB
 
 - Prepare environment
