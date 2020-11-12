@@ -1,5 +1,7 @@
 This folder implements huffman coding in C.
 
+Huffman Coding Algorithm is one of the building blocks of popular compression format like gzip.
+
 
 ## Algorithm description
 
